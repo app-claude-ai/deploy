@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Riley Chen · product engineer</title>
+  <!-- clean font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #ffffff;
+      color: #17171c;
+    }
+
+    /* preloader overlay — быстрый, почти незаметный */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.2s ease-out;
+      opacity: 1;
+      pointer-events: none;
+    }
+    .preloader.hide {
+      opacity: 0;
+    }
+    /* микро-элемент — едва заметная точка */
+    .preloader-dot {
+      width: 3px;
+      height: 3px;
+      background: #d4d8e2;
+      border-radius: 50%;
+      opacity: 0.25;
+    }
+
+    /* основной контент изначально скрыт */
+    .main-content {
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .main-content.visible {
+      opacity: 1;
+    }
+
+    /* layout */
+    .screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.8rem;
+    }
+
+    .wrapper {
+      max-width: 720px;
+      width: 100%;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 2.4rem;
+      border-radius: 28px;
+      border: 1px solid #eaedf2;
+    }
+
+    /* header */
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .header-row h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    .badge {
+      background: #f0f4f9;
+      padding: 0.25rem 1rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #2a7346;
+    }
+    .badge i {
+      font-size: 0.45rem;
+      margin-right: 4px;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #4a4a55;
+      margin-bottom: 1.2rem;
+    }
+
+    .about {
+      color: #52525f;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1.8rem;
+    }
+
+    .details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+    }
+    .details span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #35353f;
+    }
+    .details i {
+      color: #8f8f9e;
+      width: 18px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+      color: #9ca3af;
+      margin-bottom: 0.7rem;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .tech {
+      background: #f6f8fc;
+      padding: 0.25rem 1rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #2d2d36;
+    }
+
+    .project-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .project-card {
+      flex: 1;
+      min-width: 160px;
+      background: #fefeff;
+      border-radius: 20px;
+      padding: 0.9rem 1rem;
+      border: 1px solid #eff2f7;
+      transition: 0.2s;
+    }
+    .project-card:hover {
+      border-color: #e0e4ea;
+      background: #ffffff;
+    }
+    .project-card h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 0.3rem;
+    }
+    .project-card p {
+      font-size: 0.7rem;
+      color: #6e6e7e;
+      line-height: 1.4;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eff1f5;
+    }
+    .contact-row a {
+      background: #fafbfe;
+      padding: 0.4rem 1.2rem;
+      border-radius: 60px;
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #2a2a32;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #edf0f5;
+      transition: 0.2s;
+    }
+    .contact-row a:hover {
+      background: #ffffff;
+      border-color: #d0d6e0;
+    }
+    .contact-row .dark-btn {
+      background: #1a1a22;
+      color: white;
+      border: none;
+    }
+    .contact-row .dark-btn:hover {
+      background: #2d2d3a;
+    }
+
+    .footnote {
+      text-align: center;
+      font-size: 0.65rem;
+      color: #b9c0cc;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 580px) {
+      .card {
+        padding: 1.5rem;
+      }
+      .header-row h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- прелоадер на 0.5 секунды -->
+<div class="preloader" id="preloader">
+  <div class="preloader-dot"></div>
+</div>
+
+<div class="main-content" id="mainContent">
+  <div class="screen">
+    <div class="wrapper">
+      <div class="card">
+        
+        <div class="header-row">
+          <h1>Riley Chen</h1>
+          <div class="badge"><i class="fas fa-circle"></i> open</div>
+        </div>
+
+        <div class="tagline">
+          product engineer · design systems
+        </div>
+
+        <div class="about">
+          I ship scalable, human-friendly interfaces. Based in Vancouver, 
+          I help teams build and maintain design systems that actually work.
+        </div>
+
+        <div class="details">
+          <span><i class="fas fa-map-pin"></i> Vancouver / remote</span>
+          <span><i class="far fa-calendar"></i> 5+ years</span>
+          <span><i class="far fa-envelope"></i> riley@chen.dev</span>
+        </div>
+
+        <div class="section-label">stack</div>
+        <div class="tech-list">
+          <span class="tech">React</span>
+          <span class="tech">Vue</span>
+          <span class="tech">TypeScript</span>
+          <span class="tech">Tailwind</span>
+          <span class="tech">Storybook</span>
+          <span class="tech">Figma</span>
+        </div>
+
+        <div class="section-label">work</div>
+        <div class="project-grid">
+          <div class="project-card">
+            <h4><i class="fas fa-palette"></i> Atlas</h4>
+            <p>Open-source design system · used by 200+ teams</p>
+          </div>
+          <div class="project-card">
+            <h4><i class="fas fa-chart-line"></i> Pulse</h4>
+            <p>Analytics dashboard for product metrics</p>
+          </div>
+          <div class="project-card">
+            <h4><i class="fas fa-cube"></i> Stella</h4>
+            <p>Component library + documentation tool</p>
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <a href="#" id="githubId"><i class="fab fa-github"></i> riley-chen</a>
+          <a href="#" id="linkedinId"><i class="fab fa-linkedin-in"></i> rileychen</a>
+          <a href="#" id="emailId"><i class="far fa-paper-plane"></i> riley@chen.dev</a>
+          <a href="#" class="dark-btn" id="resumeId"><i class="far fa-file"></i> resume</a>
+        </div>
+        <div class="footnote">
+          freelance & full-time · available worldwide
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const preloader = document.getElementById('preloader');
+    const mainContent = document.getElementById('mainContent');
+    
+    if (preloader && mainContent) {
+      setTimeout(() => {
+        preloader.classList.add('hide');
+        mainContent.classList.add('visible');
+        setTimeout(() => {
+          if (preloader.parentNode) {
+            preloader.style.display = 'none';
+          }
+        }, 250);
+      }, 500);
+    } else {
+      if (mainContent) mainContent.classList.add('visible');
+      if (preloader) preloader.style.display = 'none';
+    }
+
+    const github = document.getElementById('githubId');
+    const linkedin = document.getElementById('linkedinId');
+    const email = document.getElementById('emailId');
+    const resume = document.getElementById('resumeId');
+    
+    if(github) {
+      github.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("🐙 github.com/riley-chen — open source, design systems and side projects.");
+      });
+    }
+    if(linkedin) {
+      linkedin.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("💼 linkedin.com/in/rileychen — experience and recommendations.");
+      });
+    }
+    if(email) {
+      email.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("📧 riley@chen.dev — send a message, I reply within 24h.");
+      });
+    }
+    if(resume) {
+      resume.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("📄 PDF resume — available via email or LinkedIn.");
+      });
+    }
+  })();
+</script>
+</body>
+</html>
