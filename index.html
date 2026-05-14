@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Riley Chen · product engineer</title>
-  <!-- clean font -->
+  <title>Lena Schubert · interface architect</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -17,304 +16,256 @@
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #ffffff;
-      color: #17171c;
+      color: #141416;
     }
 
-    /* preloader overlay — быстрый, почти незаметный */
-    .preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.2s ease-out;
-      opacity: 1;
-      pointer-events: none;
-    }
-    .preloader.hide {
-      opacity: 0;
-    }
-    /* микро-элемент — едва заметная точка */
-    .preloader-dot {
-      width: 3px;
-      height: 3px;
-      background: #d4d8e2;
-      border-radius: 50%;
-      opacity: 0.25;
-    }
-
-    /* основной контент изначально скрыт */
-    .main-content {
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-    .main-content.visible {
-      opacity: 1;
-    }
-
-    /* layout */
-    .screen {
+    .scene {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.8rem;
+      padding: 2rem;
     }
 
-    .wrapper {
-      max-width: 720px;
+    .frame {
+      max-width: 700px;
       width: 100%;
     }
 
-    .card {
+    .slab {
       background: #ffffff;
-      padding: 2.4rem;
-      border-radius: 28px;
-      border: 1px solid #eaedf2;
+      padding: 2.5rem;
+      border-radius: 32px;
+      border: 1px solid #edf0f4;
     }
 
-    /* header */
-    .header-row {
+    /* необычное расположение — имя и статус в одной строке но с разделителем */
+    .identity {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-bottom: 1rem;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid #f0f3f8;
     }
-    .header-row h1 {
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: -0.3px;
+    .identity h1 {
+      font-size: 2.1rem;
+      font-weight: 620;
+      letter-spacing: -0.02em;
     }
-    .badge {
-      background: #f0f4f9;
-      padding: 0.25rem 1rem;
-      border-radius: 50px;
+    .pill-status {
+      background: #eef3fa;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
       font-size: 0.7rem;
       font-weight: 500;
-      color: #2a7346;
-    }
-    .badge i {
-      font-size: 0.45rem;
-      margin-right: 4px;
+      color: #2c6b4a;
     }
 
-    .tagline {
-      font-size: 1.1rem;
+    .descriptor {
+      font-size: 1rem;
       font-weight: 400;
-      color: #4a4a55;
+      color: #4f607a;
       margin-bottom: 1.2rem;
     }
 
-    .about {
-      color: #52525f;
-      font-size: 0.9rem;
-      line-height: 1.5;
+    .story {
+      color: #3a4b64;
+      font-size: 0.92rem;
+      line-height: 1.55;
       margin-bottom: 1.8rem;
     }
 
-    .details {
+    .contact-snapshot {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.8rem;
+      gap: 1.5rem;
       margin-bottom: 2rem;
+      background: #fafcfe;
+      padding: 0.8rem 0;
     }
-    .details span {
+    .contact-snapshot div {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 0.85rem;
-      font-weight: 500;
-      color: #35353f;
+      color: #2c405e;
     }
-    .details i {
-      color: #8f8f9e;
+    .contact-snapshot i {
+      color: #8b9bb2;
       width: 18px;
     }
 
-    .section-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      font-weight: 600;
-      color: #9ca3af;
-      margin-bottom: 0.7rem;
-    }
-
-    .tech-list {
+    .tool-belt {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-bottom: 2rem;
+      margin: 1rem 0 2rem;
     }
-    .tech {
-      background: #f6f8fc;
-      padding: 0.25rem 1rem;
-      border-radius: 30px;
+    .tool {
+      background: #f5f7fb;
+      padding: 0.3rem 1.1rem;
+      border-radius: 40px;
       font-size: 0.75rem;
       font-weight: 500;
-      color: #2d2d36;
+      color: #2c405c;
     }
 
-    .project-grid {
+    .case-studies {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 2rem;
+      margin: 1rem 0 2rem;
     }
-    .project-card {
+    .case {
       flex: 1;
-      min-width: 160px;
-      background: #fefeff;
-      border-radius: 20px;
-      padding: 0.9rem 1rem;
-      border: 1px solid #eff2f7;
-      transition: 0.2s;
-    }
-    .project-card:hover {
-      border-color: #e0e4ea;
+      min-width: 155px;
       background: #ffffff;
+      border-radius: 22px;
+      padding: 1rem 1rem;
+      border: 1px solid #eef2f7;
+      transition: all 0.2s;
     }
-    .project-card h4 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 0.3rem;
+    .case:hover {
+      border-color: #dce2ec;
+      background: #fefefe;
     }
-    .project-card p {
+    .case .mark {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .case h4 {
+      font-size: 0.9rem;
+      font-weight: 650;
+      margin-bottom: 0.25rem;
+    }
+    .case p {
       font-size: 0.7rem;
-      color: #6e6e7e;
+      color: #6e839c;
       line-height: 1.4;
     }
 
-    .contact-row {
+    .action-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
+      gap: 0.8rem;
+      margin-top: 1rem;
       padding-top: 1rem;
-      border-top: 1px solid #eff1f5;
+      border-top: 1px solid #eef2f6;
     }
-    .contact-row a {
-      background: #fafbfe;
-      padding: 0.4rem 1.2rem;
+    .action-row a {
+      background: #f9fafc;
+      padding: 0.45rem 1.3rem;
       border-radius: 60px;
       text-decoration: none;
       font-size: 0.75rem;
       font-weight: 500;
-      color: #2a2a32;
+      color: #202e44;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid #edf0f5;
+      border: 1px solid #e8edf3;
       transition: 0.2s;
     }
-    .contact-row a:hover {
+    .action-row a:hover {
       background: #ffffff;
-      border-color: #d0d6e0;
+      border-color: #cfd9e5;
     }
-    .contact-row .dark-btn {
-      background: #1a1a22;
+    .action-row .dark {
+      background: #1c2a3f;
       color: white;
       border: none;
     }
-    .contact-row .dark-btn:hover {
-      background: #2d2d3a;
+    .action-row .dark:hover {
+      background: #2e3f58;
     }
 
     .footnote {
       text-align: center;
       font-size: 0.65rem;
-      color: #b9c0cc;
-      margin-top: 1.5rem;
+      color: #bbc4d2;
+      margin-top: 1.6rem;
     }
 
-    @media (max-width: 580px) {
-      .card {
+    @media (max-width: 550px) {
+      .slab {
         padding: 1.5rem;
       }
-      .header-row h1 {
-        font-size: 1.6rem;
+      .identity h1 {
+        font-size: 1.7rem;
       }
     }
   </style>
 </head>
 <body>
+<div class="scene">
+  <div class="frame">
+    <div class="slab">
+      
+      <!-- имя и статус под одной чертой -->
+      <div class="identity">
+        <h1>Lena Schubert</h1>
+        <div class="pill-status">● available</div>
+      </div>
 
-<!-- прелоадер на 0.5 секунды -->
-<div class="preloader" id="preloader">
-  <div class="preloader-dot"></div>
-</div>
+      <div class="descriptor">
+        interface architect · design engineering
+      </div>
 
-<div class="main-content" id="mainContent">
-  <div class="screen">
-    <div class="wrapper">
-      <div class="card">
-        
-        <div class="header-row">
-          <h1>Riley Chen</h1>
-          <div class="badge"><i class="fas fa-circle"></i> open</div>
-        </div>
+      <div class="story">
+        I craft interfaces where clarity meets character. From design systems to interactive prototypes, I help teams build web experiences that are both precise and human. Based in Vienna, working globally.
+      </div>
 
-        <div class="tagline">
-          product engineer · design systems
-        </div>
+      <!-- контактная информация блочно, чисто -->
+      <div class="contact-snapshot">
+        <div><i class="fas fa-map-pin"></i> Vienna</div>
+        <div><i class="far fa-calendar"></i> 8+ years</div>
+        <div><i class="far fa-envelope"></i> lena@schubert.dev</div>
+      </div>
 
-        <div class="about">
-          I ship scalable, human-friendly interfaces. Based in Vancouver, 
-          I help teams build and maintain design systems that actually work.
-        </div>
+      <!-- технологии -->
+      <div class="tool-belt">
+        <span class="tool">React</span>
+        <span class="tool">Vue</span>
+        <span class="tool">TypeScript</span>
+        <span class="tool">Tailwind</span>
+        <span class="tool">Figma</span>
+        <span class="tool">Storybook</span>
+        <span class="tool">Framer</span>
+      </div>
 
-        <div class="details">
-          <span><i class="fas fa-map-pin"></i> Vancouver / remote</span>
-          <span><i class="far fa-calendar"></i> 5+ years</span>
-          <span><i class="far fa-envelope"></i> riley@chen.dev</span>
+      <!-- проекты: другой формат иконок -->
+      <div class="case-studies">
+        <div class="case">
+          <span class="mark">🎯</span>
+          <h4>Atlas DS</h4>
+          <p>Enterprise design system adopted by 30+ product teams</p>
         </div>
+        <div class="case">
+          <span class="mark">🔄</span>
+          <h4>Orbit</h4>
+          <p>Component library with real-time accessibility checker</p>
+        </div>
+        <div class="case">
+          <span class="mark">📈</span>
+          <h4>Forecast</h4>
+          <p>Dashboard for climate data visualization · open source</p>
+        </div>
+      </div>
 
-        <div class="section-label">stack</div>
-        <div class="tech-list">
-          <span class="tech">React</span>
-          <span class="tech">Vue</span>
-          <span class="tech">TypeScript</span>
-          <span class="tech">Tailwind</span>
-          <span class="tech">Storybook</span>
-          <span class="tech">Figma</span>
-        </div>
-
-        <div class="section-label">work</div>
-        <div class="project-grid">
-          <div class="project-card">
-            <h4><i class="fas fa-palette"></i> Atlas</h4>
-            <p>Open-source design system · used by 200+ teams</p>
-          </div>
-          <div class="project-card">
-            <h4><i class="fas fa-chart-line"></i> Pulse</h4>
-            <p>Analytics dashboard for product metrics</p>
-          </div>
-          <div class="project-card">
-            <h4><i class="fas fa-cube"></i> Stella</h4>
-            <p>Component library + documentation tool</p>
-          </div>
-        </div>
-
-        <div class="contact-row">
-          <a href="#" id="githubId"><i class="fab fa-github"></i> riley-chen</a>
-          <a href="#" id="linkedinId"><i class="fab fa-linkedin-in"></i> rileychen</a>
-          <a href="#" id="emailId"><i class="far fa-paper-plane"></i> riley@chen.dev</a>
-          <a href="#" class="dark-btn" id="resumeId"><i class="far fa-file"></i> resume</a>
-        </div>
-        <div class="footnote">
-          freelance & full-time · available worldwide
-        </div>
+      <!-- контакты: новый набор иконок и текст -->
+      <div class="action-row">
+        <a href="#" id="githubL"><i class="fab fa-github"></i> lena-codes</a>
+        <a href="#" id="linkedinL"><i class="fab fa-linkedin-in"></i> lenaschubert</a>
+        <a href="#" id="blueskyL"><i class="fab fa-bluesky"></i> @lena.work</a>
+        <a href="#" class="dark" id="resumeL"><i class="far fa-file-alt"></i> cv</a>
+      </div>
+      <div class="footnote">
+        open for design systems consulting · speaking · freelance
       </div>
     </div>
   </div>
@@ -322,55 +273,36 @@
 
 <script>
   (function() {
-    const preloader = document.getElementById('preloader');
-    const mainContent = document.getElementById('mainContent');
-    
-    if (preloader && mainContent) {
-      setTimeout(() => {
-        preloader.classList.add('hide');
-        mainContent.classList.add('visible');
-        setTimeout(() => {
-          if (preloader.parentNode) {
-            preloader.style.display = 'none';
-          }
-        }, 250);
-      }, 500);
-    } else {
-      if (mainContent) mainContent.classList.add('visible');
-      if (preloader) preloader.style.display = 'none';
-    }
-
-    const github = document.getElementById('githubId');
-    const linkedin = document.getElementById('linkedinId');
-    const email = document.getElementById('emailId');
-    const resume = document.getElementById('resumeId');
+    const github = document.getElementById('githubL');
+    const linkedin = document.getElementById('linkedinL');
+    const bluesky = document.getElementById('blueskyL');
+    const cv = document.getElementById('resumeL');
     
     if(github) {
       github.addEventListener('click', (e) => {
         e.preventDefault();
-        alert("🐙 github.com/riley-chen — open source, design systems and side projects.");
+        alert("🐙 github.com/lena-codes — design systems, component libraries and tooling.");
       });
     }
     if(linkedin) {
       linkedin.addEventListener('click', (e) => {
         e.preventDefault();
-        alert("💼 linkedin.com/in/rileychen — experience and recommendations.");
+        alert("💼 linkedin.com/in/lenaschubert — 8+ years in product design engineering.");
       });
     }
-    if(email) {
-      email.addEventListener('click', (e) => {
+    if(bluesky) {
+      bluesky.addEventListener('click', (e) => {
         e.preventDefault();
-        alert("📧 riley@chen.dev — send a message, I reply within 24h.");
+        alert("🦋 @lena.work — design systems, CSS, and frontend architecture.");
       });
     }
-    if(resume) {
-      resume.addEventListener('click', (e) => {
+    if(cv) {
+      cv.addEventListener('click', (e) => {
         e.preventDefault();
-        alert("📄 PDF resume — available via email or LinkedIn.");
+        alert("📄 Portfolio & CV — available on request. Let's connect!");
       });
     }
   })();
 </script>
-  <script src="protection.js"></script>
 </body>
 </html>
