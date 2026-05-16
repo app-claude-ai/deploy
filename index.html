@@ -1,309 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Lena Schubert · interface architect</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>StealthAI | Secure Private AI Infrastructure</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #ffffff;
-      color: #141416;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1a1e2b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
 
-    .scene {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
+        :root {
+            --slate: #1e293b;
+            --slate-light: #334155;
+            --emerald: #059669;
+            --emerald-dark: #047857;
+            --gray-bg: #f8fafc;
+            --border-light: #e2e8f0;
+            --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.03);
+            --radius: 20px;
+        }
 
-    .frame {
-      max-width: 700px;
-      width: 100%;
-    }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
 
-    .slab {
-      background: #ffffff;
-      padding: 2.5rem;
-      border-radius: 32px;
-      border: 1px solid #edf0f4;
-    }
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
 
-    /* необычное расположение — имя и статус в одной строке но с разделителем */
-    .identity {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 2px solid #f0f3f8;
-    }
-    .identity h1 {
-      font-size: 2.1rem;
-      font-weight: 620;
-      letter-spacing: -0.02em;
-    }
-    .pill-status {
-      background: #eef3fa;
-      padding: 0.2rem 1rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: #2c6b4a;
-    }
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+        }
 
-    .descriptor {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #4f607a;
-      margin-bottom: 1.2rem;
-    }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--slate);
+            letter-spacing: -0.02em;
+        }
 
-    .story {
-      color: #3a4b64;
-      font-size: 0.92rem;
-      line-height: 1.55;
-      margin-bottom: 1.8rem;
-    }
+        .logo span {
+            color: var(--emerald);
+        }
 
-    .contact-snapshot {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      background: #fafcfe;
-      padding: 0.8rem 0;
-    }
-    .contact-snapshot div {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: #2c405e;
-    }
-    .contact-snapshot i {
-      color: #8b9bb2;
-      width: 18px;
-    }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-    .tool-belt {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 1rem 0 2rem;
-    }
-    .tool {
-      background: #f5f7fb;
-      padding: 0.3rem 1.1rem;
-      border-radius: 40px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #2c405c;
-    }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--slate-light);
+            transition: 0.2s;
+        }
 
-    .case-studies {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 1rem 0 2rem;
-    }
-    .case {
-      flex: 1;
-      min-width: 155px;
-      background: #ffffff;
-      border-radius: 22px;
-      padding: 1rem 1rem;
-      border: 1px solid #eef2f7;
-      transition: all 0.2s;
-    }
-    .case:hover {
-      border-color: #dce2ec;
-      background: #fefefe;
-    }
-    .case .mark {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-    .case h4 {
-      font-size: 0.9rem;
-      font-weight: 650;
-      margin-bottom: 0.25rem;
-    }
-    .case p {
-      font-size: 0.7rem;
-      color: #6e839c;
-      line-height: 1.4;
-    }
+        .nav-links a:hover {
+            color: var(--emerald);
+        }
 
-    .action-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #eef2f6;
-    }
-    .action-row a {
-      background: #f9fafc;
-      padding: 0.45rem 1.3rem;
-      border-radius: 60px;
-      text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #202e44;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid #e8edf3;
-      transition: 0.2s;
-    }
-    .action-row a:hover {
-      background: #ffffff;
-      border-color: #cfd9e5;
-    }
-    .action-row .dark {
-      background: #1c2a3f;
-      color: white;
-      border: none;
-    }
-    .action-row .dark:hover {
-      background: #2e3f58;
-    }
+        .btn-outline-emerald {
+            border: 1px solid var(--emerald);
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            background: transparent;
+            font-weight: 600;
+            color: var(--emerald);
+            transition: 0.2s;
+        }
 
-    .footnote {
-      text-align: center;
-      font-size: 0.65rem;
-      color: #bbc4d2;
-      margin-top: 1.6rem;
-    }
+        .btn-outline-emerald:hover {
+            background: var(--emerald);
+            color: white;
+        }
 
-    @media (max-width: 550px) {
-      .slab {
-        padding: 1.5rem;
-      }
-      .identity h1 {
-        font-size: 1.7rem;
-      }
-    }
-  </style>
+        /* Hero */
+        .hero {
+            padding: 5rem 0 6rem;
+            background: linear-gradient(110deg, #ffffff 0%, #f1f5f9 100%);
+        }
+
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            background: #ecfdf5;
+            color: var(--emerald);
+            border-radius: 100px;
+            padding: 0.3rem 1rem;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--slate);
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 90%;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--emerald);
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--slate);
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem 1.8rem;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-light);
+            transition: all 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
+            border-color: var(--emerald);
+        }
+
+        .card-icon {
+            font-size: 2.3rem;
+            color: var(--emerald);
+            margin-bottom: 1.2rem;
+        }
+
+        /* Use cases row */
+        .use-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: var(--gray-bg);
+            border-radius: 32px;
+            padding: 2.5rem;
+            align-items: center;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .price-card {
+            background: white;
+            border-radius: 28px;
+            flex: 1;
+            min-width: 260px;
+            padding: 2rem;
+            border: 1px solid var(--border-light);
+            transition: 0.2s;
+        }
+
+        .price-card.featured {
+            border-top: 4px solid var(--emerald);
+            box-shadow: 0 12px 24px -12px rgba(5, 150, 105, 0.15);
+            transform: scale(1.02);
+        }
+
+        .price {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--emerald);
+            margin: 1rem 0;
+        }
+
+        .btn-primary {
+            background: var(--emerald);
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--emerald-dark);
+        }
+
+        .cta-section {
+            background: var(--slate);
+            border-radius: 40px;
+            color: white;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        /* Privacy Section */
+        .privacy-card {
+            background: var(--gray-bg);
+            border-radius: 32px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-light);
+            scroll-margin-top: 90px;
+        }
+
+        .privacy-card h2, .privacy-card h3 {
+            color: var(--slate);
+            margin-top: 1.8rem;
+            font-weight: 700;
+        }
+
+        .privacy-card p, .privacy-card li {
+            color: #334155;
+        }
+
+        footer {
+            background: var(--slate);
+            color: #cbd5e1;
+            padding: 3rem 0 2rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--emerald);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: 0.2s;
+            z-index: 99;
+        }
+
+        @media (max-width: 800px) {
+            .hero-content h1 { font-size: 2.3rem; }
+            .nav-wrapper { flex-direction: column; gap: 1rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+    </style>
 </head>
 <body>
-<div class="scene">
-  <div class="frame">
-    <div class="slab">
-      
-      <!-- имя и статус под одной чертой -->
-      <div class="identity">
-        <h1>Lena Schubert</h1>
-        <div class="pill-status">● available</div>
-      </div>
 
-      <div class="descriptor">
-        interface architect · design engineering
-      </div>
-
-      <div class="story">
-        I craft interfaces where clarity meets character. From design systems to interactive prototypes, I help teams build web experiences that are both precise and human. Based in Vienna, working globally.
-      </div>
-
-      <!-- контактная информация блочно, чисто -->
-      <div class="contact-snapshot">
-        <div><i class="fas fa-map-pin"></i> Vienna</div>
-        <div><i class="far fa-calendar"></i> 8+ years</div>
-        <div><i class="far fa-envelope"></i> lena@schubert.dev</div>
-      </div>
-
-      <!-- технологии -->
-      <div class="tool-belt">
-        <span class="tool">React</span>
-        <span class="tool">Vue</span>
-        <span class="tool">TypeScript</span>
-        <span class="tool">Tailwind</span>
-        <span class="tool">Figma</span>
-        <span class="tool">Storybook</span>
-        <span class="tool">Framer</span>
-      </div>
-
-      <!-- проекты: другой формат иконок -->
-      <div class="case-studies">
-        <div class="case">
-          <span class="mark">🎯</span>
-          <h4>Atlas DS</h4>
-          <p>Enterprise design system adopted by 30+ product teams</p>
+<nav class="navbar">
+    <div class="container nav-wrapper">
+        <div class="logo">Stealth<span>AI</span></div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#privacy-policy">Privacy</a>
+            <a href="#" class="btn-outline-emerald"><i class="fas fa-shield-alt"></i> Get access</a>
         </div>
-        <div class="case">
-          <span class="mark">🔄</span>
-          <h4>Orbit</h4>
-          <p>Component library with real-time accessibility checker</p>
-        </div>
-        <div class="case">
-          <span class="mark">📈</span>
-          <h4>Forecast</h4>
-          <p>Dashboard for climate data visualization · open source</p>
-        </div>
-      </div>
-
-      <!-- контакты: новый набор иконок и текст -->
-      <div class="action-row">
-        <a href="#" id="githubL"><i class="fab fa-github"></i> lena-codes</a>
-        <a href="#" id="linkedinL"><i class="fab fa-linkedin-in"></i> lenaschubert</a>
-        <a href="#" id="blueskyL"><i class="fab fa-bluesky"></i> @lena.work</a>
-        <a href="#" class="dark" id="resumeL"><i class="far fa-file-alt"></i> cv</a>
-      </div>
-      <div class="footnote">
-        open for design systems consulting · speaking · freelance
-      </div>
     </div>
-  </div>
-</div>
+</nav>
+
+<main>
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-lock"></i> Zero-Trust AI Infrastructure</div>
+                <h1>Private, secure, sovereign artificial intelligence</h1>
+                <p>Deploy enterprise-grade AI that never exposes your data. On-prem, hybrid, or cloud — with end-to-end encryption and compliance.</p>
+                <a href="#" class="btn-primary"><i class="fas fa-arrow-right"></i> Request demo</a>
+                <div class="hero-stats">
+                    <div class="stat-item"><h3>100%</h3><span>data sovereignty</span></div>
+                    <div class="stat-item"><h3>SOC2</h3><span>Type II certified</span></div>
+                    <div class="stat-item"><h3>GDPR</h3><span>compliant</span></div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://placehold.co/600x500/E8F5E9/059669?text=Secure+AI+Infra&font=inter" alt="Secure AI Infrastructure">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Built for privacy-first enterprises</h2>
+            <div class="cards-grid">
+                <div class="card"><div class="card-icon"><i class="fas fa-user-secret"></i></div><h3>Fully Homomorphic Encryption</h3><p>Run inference on encrypted data — model never sees raw inputs. Military-grade privacy.</p></div>
+                <div class="card"><div class="card-icon"><i class="fas fa-server"></i></div><h3>On-Prem Deployment</h3><p>Deploy inside your VPC or air-gapped environment. Complete control over infrastructure.</p></div>
+                <div class="card"><div class="card-icon"><i class="fas fa-file-signature"></i></div><h3>Auditable AI</h3><p>Every prediction is logged, signed, and immutable. Perfect for regulated industries.</p></div>
+                <div class="card"><div class="card-icon"><i class="fas fa-globe"></i></div><h3>Global Compliance</h3><p>GDPR, HIPAA, CCPA, FedRAMP — automated compliance guardrails built-in.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions -->
+    <section id="solutions">
+        <div class="container">
+            <div class="use-row">
+                <div style="flex:1"><i class="fas fa-hospital" style="font-size: 2.5rem; color:#059669;"></i><h3 style="margin: 1rem 0 0.5rem;">Healthcare AI</h3><p>Diagnostic assistance, medical imaging — without exposing PHI.</p></div>
+                <div style="flex:1"><i class="fas fa-university" style="font-size: 2.5rem; color:#059669;"></i><h3 style="margin: 1rem 0 0.5rem;">Financial Services</h3><p>Fraud detection, credit scoring with zero data leakage.</p></div>
+                <div style="flex:1"><i class="fas fa-gavel" style="font-size: 2.5rem; color:#059669;"></i><h3 style="margin: 1rem 0 0.5rem;">Legal & Compliance</h3><p>Contract analysis, redaction — data never leaves your premises.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Transparent pricing for private AI</h2>
+            <div class="pricing-grid">
+                <div class="price-card"><h3>Starter</h3><div class="price">$299<span style="font-size:1rem;">/mo</span></div><p>Cloud private tenant, 50K API calls, basic encryption.</p><a href="#" class="btn-primary" style="margin-top:1.5rem; display:inline-block;">Start free trial</a></div>
+                <div class="price-card featured"><h3>Business <span style="background:#ecfdf5; font-size:0.7rem; padding:0.2rem 0.6rem; border-radius:40px;">⭐ Most popular</span></h3><div class="price">$999<span style="font-size:1rem;">/mo</span></div><p>Dedicated VPC, 500K calls, SOC2 compliance, priority support.</p><a href="#" class="btn-primary">Contact sales</a></div>
+                <div class="price-card"><h3>Enterprise</h3><div class="price">Custom</div><p>On-prem, air-gapped, unlimited scale, custom SLAs.</p><a href="#" class="btn-primary">Get quote</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="container">
+        <div class="cta-section">
+            <h2 style="font-size: 2rem;">Keep your AI private. Keep it powerful.</h2>
+            <p style="margin: 1rem 0 2rem; opacity: 0.9;">Join 500+ enterprises that trust StealthAI for secure machine learning.</p>
+            <a href="#" class="btn-primary" style="background: white; color: #1e293b;"><i class="fas fa-lock"></i> Start secure trial</a>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Section -->
+    <div class="container" id="privacy-policy">
+        <div class="privacy-card">
+            <h2 style="margin-top:0;"><i class="fas fa-file-contract" style="color:#059669;"></i> Privacy Policy</h2>
+            <p><strong>Last updated:</strong> May 2025 | StealthAI is committed to the highest standards of data protection and transparency.</p>
+            
+            <h3>1. Information we collect</h3>
+            <p>We collect business contact information (name, company, email, phone), billing details, and usage metadata (API volumes, performance metrics). We do NOT store or log your model inputs or outputs unless explicitly enabled for debugging.</p>
+            
+            <h3>2. How we use your information</h3>
+            <p>To provide and maintain our secure AI services, billing, account management, security monitoring, and compliance reporting. We never use your data for model training without written consent.</p>
+            
+            <h3>3. Data retention</h3>
+            <p>Customer account data retained while active. Usage logs anonymized after 30 days. You may request deletion at any time.</p>
+            
+            <h3>4. Third-party sharing</h3>
+            <p>We do not sell or rent personal data. Limited sharing with infrastructure providers (AWS, Azure) under strict data processing agreements. All data remains encrypted.</p>
+            
+            <h3>5. Your rights (GDPR/CCPA)</h3>
+            <p>Access, correction, deletion, restriction, portability. Email <strong>privacy@stealthai.com</strong>. You also have the right to lodge a complaint with a supervisory authority.</p>
+            
+            <h3>6. Security measures</h3>
+            <p>AES-256 encryption at rest, TLS 1.3 in transit, hardware security modules (HSMs), quarterly penetration tests, and zero-trust architecture.</p>
+            
+            <h3>7. Children's privacy</h3>
+            <p>StealthAI is for business use only and not intended for individuals under 18.</p>
+            
+            <h3>8. International data transfers</h3>
+            <p>We offer data residency options (US, EU, APAC). Standard Contractual Clauses govern cross-border transfers.</p>
+            
+            <h3>9. Policy changes & contact</h3>
+            <p>Material changes will be notified via email. Data Protection Officer: <strong>dpo@stealthai.com</strong>. Mailing address: 111 Secure Way, Suite 500, Austin, TX 78701.</p>
+            <p style="margin-top:1rem;"><i class="fas fa-shield-check" style="color:#059669;"></i> StealthAI — AI that respects your boundaries.</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem;">
+            <div><h3 style="color:white;">Stealth<span style="color:#059669;">AI</span></h3><p>Secure sovereign AI infrastructure</p><div style="margin-top:0.8rem;"><i class="fab fa-twitter"></i> <i class="fab fa-linkedin"></i> <i class="fab fa-github"></i> © 2025</div></div>
+            <div><h4>Product</h4><p>Private AI Cloud<br>On-Prem<br>Encryption Suite<br>Pricing</p></div>
+            <div><h4>Resources</h4><p>Documentation<br>Compliance<br>Status<br>Support</p></div>
+            <div><h4>Legal</h4><p><a href="#privacy-policy" style="color:#cbd5e1; text-decoration:none;">Privacy Policy</a><br>Terms of Service<br>DPA<br>Security Whitepaper</p></div>
+        </div>
+        <div style="text-align: center; padding-top: 2rem; border-top: 1px solid #475569; margin-top: 2rem; font-size: 0.8rem;">
+            StealthAI — Zero-trust AI for the enterprise. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
 <script>
-  (function() {
-    const github = document.getElementById('githubL');
-    const linkedin = document.getElementById('linkedinL');
-    const bluesky = document.getElementById('blueskyL');
-    const cv = document.getElementById('resumeL');
-    
-    if(github) {
-      github.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert("🐙 github.com/lena-codes — design systems, component libraries and tooling.");
-      });
-    }
-    if(linkedin) {
-      linkedin.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert("💼 linkedin.com/in/lenaschubert — 8+ years in product design engineering.");
-      });
-    }
-    if(bluesky) {
-      bluesky.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert("🦋 @lena.work — design systems, CSS, and frontend architecture.");
-      });
-    }
-    if(cv) {
-      cv.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert("📄 Portfolio & CV — available on request. Let's connect!");
-      });
-    }
-  })();
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === "#" || href === "") return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
 </script>
-  <script src="protection.js"></script>
 </body>
 </html>
